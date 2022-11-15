@@ -69,6 +69,7 @@ func main() {
 						}
 					case 9:
 						{
+							fmt.Println("\n Terimakasih Telah Bertransaksi  ^_^ ")
 							isRun2 = false
 						}
 					}
