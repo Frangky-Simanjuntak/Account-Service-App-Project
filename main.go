@@ -1,7 +1,12 @@
 package main
 
-import "fmt"
+import (
+	"be13/sql/account/config"
+	_ "github.com/go-sql-driver/mysql"
+)
 
 func main() {
-	fmt.println("a")
+	dbConnection := config.ConnectToDB()
+
+	defer dbConnection.Close() // menutup koneksi
 }
