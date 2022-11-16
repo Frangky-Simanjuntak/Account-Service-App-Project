@@ -4,7 +4,8 @@ import (
 	"be13/sql/account/config"
 	"be13/sql/account/entities"
 
-	login "be13/sql/account/controllers"
+	"be13/sql/account/controllers/login"
+	"be13/sql/account/controllers/register"
 
 	"fmt"
 
@@ -27,6 +28,7 @@ func main() {
 		case 1:
 			{
 				fmt.Println("ADD ACOUNT")
+				register.Add(dbConnection)
 			}
 		case 2:
 			{
@@ -43,6 +45,7 @@ func main() {
 					fmt.Println("Selamat Datang", row.Nama, "\nSaldo yang Anda Miliki adalah", row.Saldo)
 				}
 
+				fmt.Println(" ")
 				fmt.Println("Hallo menu utama 2")
 				isRun2 := true
 				for isRun2 {
