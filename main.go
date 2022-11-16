@@ -2,6 +2,10 @@ package main
 
 import (
 	"be13/sql/account/config"
+	"be13/sql/account/entities"
+
+	login "be13/sql/account/controllers"
+
 	"fmt"
 
 	_ "github.com/go-sql-driver/mysql"
@@ -26,7 +30,19 @@ func main() {
 			}
 		case 2:
 			{
-				
+				in := entities.Users{}
+				fmt.Println("Silahkan Masukkan Nomor Telepon Anda :")
+				fmt.Scanln(&in.No_Handphone)
+				fmt.Println("Silahkan Masukkan Password Anda :")
+				fmt.Scanln(&in.Password)
+
+				row, err := login.LoginUser(dbConnection, in)
+				if err != nil {
+					fmt.Println("ERROR ON LOGIN DATA", err.Error())
+				} else {
+					fmt.Println("Selamat Datang", row.Nama, "\nSaldo yang Anda Miliki adalah", row.Saldo)
+				}
+
 				fmt.Println("Hallo menu utama 2")
 				isRun2 := true
 				for isRun2 {
@@ -74,7 +90,6 @@ func main() {
 						}
 					}
 				}
-
 			}
 		case 0:
 			{
@@ -82,5 +97,4 @@ func main() {
 			}
 		}
 	}
-
 }
