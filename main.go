@@ -4,6 +4,7 @@ import (
 	"be13/sql/account/config"
 	"be13/sql/account/entities"
 
+	//"be13/sql/account/controllers/ReadAccount"
 	"be13/sql/account/controllers/login"
 	"be13/sql/account/controllers/register"
 
@@ -32,6 +33,7 @@ func main() {
 			}
 		case 2:
 			{
+				
 				in := entities.Users{}
 				fmt.Println("Silahkan Masukkan Nomor Telepon Anda :")
 				fmt.Scanln(&in.No_Handphone)
@@ -44,7 +46,7 @@ func main() {
 				} else {
 					fmt.Println("Selamat Datang", row.Nama, "\nSaldo yang Anda Miliki adalah", row.Saldo)
 				}
-
+				
 				fmt.Println(" ")
 				fmt.Println("Hallo menu utama 2")
 				isRun2 := true
@@ -56,7 +58,12 @@ func main() {
 					switch choice2 {
 					case 1:
 						{
-							fmt.Println("HALO SUB MENU 1")
+							
+								fmt.Println("=====================")
+								fmt.Println("FITUR MELIHAT AKUN")
+								fmt.Printf(" id: %d\n nama: %s\n password: %d\n no telfon: %s\n saldo: %d\n",row.User_id, row.Nama, row.Password ,row.No_Handphone,row.Saldo)
+								fmt.Println("=====================")
+							
 						}
 					case 2:
 						{
