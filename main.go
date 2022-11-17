@@ -9,6 +9,7 @@ import (
 	"be13/sql/account/controllers/deletee"
 	"be13/sql/account/controllers/login"
 	"be13/sql/account/controllers/register"
+	"be13/sql/account/controllers/topup"
 
 	"fmt"
 
@@ -19,7 +20,9 @@ func main() {
 	dbConnection := config.ConnectToDB()
 
 	defer dbConnection.Close() // menutup koneksi
+	newUser := entities.Users{}
 	in := entities.Users{}
+	in1 := entities.Topup{}
 	isRun := true
 	for isRun {
 		fmt.Println(" ")
@@ -30,7 +33,7 @@ func main() {
 		switch choice {
 		case 1:
 			{
-				newUser := entities.Users{}
+				// newUser := entities.Users{}
 				fmt.Println("masukkan nama")
 				fmt.Scanln(&newUser.Nama)
 				fmt.Println("masukkan password")
@@ -86,11 +89,13 @@ func main() {
 							fmt.Println("Masukkan no handphone anda:")
 							fmt.Scanln(&No_Handphonee)
 							deletee.DeleteAkun(dbConnection, No_Handphonee)
-							
+
 						}
 					case 4:
 						{
 							fmt.Println("HALO SUB MENU 4")
+							topup.InsertToTopup(dbConnection, in1, row)
+							topup.TopUpAkun(dbConnection, row)
 						}
 					case 5:
 						{
