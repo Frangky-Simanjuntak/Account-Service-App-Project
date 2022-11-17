@@ -2,14 +2,12 @@ package main
 
 import (
 	"be13/sql/account/config"
-	"be13/sql/account/entities"
-
-	//"be13/sql/account/controllers/ReadAccount"
 	"be13/sql/account/controllers/Updated"
+	"be13/sql/account/controllers/anotherusers"
 	"be13/sql/account/controllers/deletee"
 	"be13/sql/account/controllers/login"
 	"be13/sql/account/controllers/register"
-
+	"be13/sql/account/entities"
 	"fmt"
 
 	_ "github.com/go-sql-driver/mysql"
@@ -86,7 +84,7 @@ func main() {
 							fmt.Println("Masukkan no handphone anda:")
 							fmt.Scanln(&No_Handphonee)
 							deletee.DeleteAkun(dbConnection, No_Handphonee)
-							
+
 						}
 					case 4:
 						{
@@ -106,7 +104,18 @@ func main() {
 						}
 					case 8:
 						{
-							fmt.Println("HALO SUB MENU 8")
+							fmt.Println("JINGOK USER LAIN")
+							cari := entities.Users{}
+							fmt.Println("Masukkan No telfon User yg ingin dilihat :")
+							fmt.Scanln(&cari.No_Handphone)
+
+							row, err := anotherusers.Search(dbConnection, cari)
+							if err != nil {
+								fmt.Println("Tidak di temukan", err)
+							} else {
+								fmt.Printf(" Nama : %s\n saldo : %d\n", row.Nama, row.Saldo)
+							}
+
 						}
 					case 9:
 						{
