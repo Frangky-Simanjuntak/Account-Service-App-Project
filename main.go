@@ -7,6 +7,7 @@ import (
 	"be13/sql/account/controllers/deletee"
 	"be13/sql/account/controllers/login"
 	"be13/sql/account/controllers/register"
+	"be13/sql/account/controllers/transfer"
 	"be13/sql/account/entities"
 	"fmt"
 
@@ -92,7 +93,7 @@ func main() {
 						}
 					case 5:
 						{
-							fmt.Println("HALO SUB MENU 5")
+							transfer.Transfer(dbConnection)
 						}
 					case 6:
 						{
