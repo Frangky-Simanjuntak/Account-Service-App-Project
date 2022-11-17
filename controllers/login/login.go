@@ -3,7 +3,6 @@ package login
 import (
 	"be13/sql/account/entities"
 	"database/sql"
-	"fmt"
 	"log"
 )
 
@@ -13,9 +12,7 @@ func LoginUser(db *sql.DB, users entities.Users) (entities.Users, error) {
 	var row entities.Users
 	errs := statm.Scan(&row.User_id, &row.Nama, &row.Password, &row.No_Handphone, &row.Saldo)
 	if errs != nil {
-		fmt.Println(errs.Error())
-		log.Fatal("Maaf No Telfon atau Password salah ")
-
+		log.Fatal("Maaf No Telfon atau Password salah ", errs.Error())
 	}
 	return row, nil
 }

@@ -10,118 +10,125 @@ import (
 	"be13/sql/account/controllers/transfer"
 	"be13/sql/account/entities"
 	"fmt"
+	"log"
 
 	_ "github.com/go-sql-driver/mysql"
 )
 
 func main() {
 	dbConnection := config.ConnectToDB()
-
 	defer dbConnection.Close() // menutup koneksi
-	in := entities.Users{}
+
 	isRun := true
 	for isRun {
-		fmt.Println(" ")
-		fmt.Print("MENU UTAMA: \n1. Add Account \n2. Login \n0. Keluar\n")
-		fmt.Println("Masukkan Pilihan Anda  ")
+		fmt.Print("MENU UTAMA: \n 1. Add Account \n 2. Login \n 0. Keluar\n")
+		fmt.Println("\nMasukkan Pilihan Anda  ")
 		var choice int
 		fmt.Scanln(&choice)
 		switch choice {
 		case 1:
 			{
 				newUser := entities.Users{}
-				fmt.Println("masukkan nama")
+				fmt.Print("masukkan Nama anda : ")
 				fmt.Scanln(&newUser.Nama)
-				fmt.Println("masukkan password")
+				fmt.Print("masukkan password anda : ")
 				fmt.Scanln(&newUser.Password)
-				fmt.Println("masukkan no handphone")
+				fmt.Print("masukkan no handphone anda : ")
 				fmt.Scanln(&newUser.No_Handphone)
-				fmt.Println("ADD ACOUNT")
 				register.Add(dbConnection, newUser)
 			}
 		case 2:
 			{
-
-				// in := entities.Users{}
-				fmt.Println("Silahkan Masukkan Nomor Telepon Anda :")
+				//ROW DIBUTUH KAN DI CASE READ, UPDATE AKUN
+				in := entities.Users{}
+				fmt.Print("Silahkan Masukkan Nomor Telepon Anda : ")
 				fmt.Scanln(&in.No_Handphone)
-				fmt.Println("Silahkan Masukkan Password Anda :")
+				fmt.Print("Silahkan Masukkan Password Anda : ")
 				fmt.Scanln(&in.Password)
 
 				row, err := login.LoginUser(dbConnection, in)
 				if err != nil {
-					fmt.Println("ERROR ON LOGIN DATA", err.Error())
+					log.Fatal("\nERROR ON LOGIN DATA", err.Error())
 				} else {
-					fmt.Println("Selamat Datang", row.Nama, "\nSaldo yang Anda Miliki adalah", row.Saldo)
-				}
+					fmt.Printf("\nSelamat Datang %s \nSaldo yang Anda Miliki adalah %d\n", row.Nama, row.Saldo)
 
-				fmt.Println(" ")
-				fmt.Println("Hallo menu utama 2")
-				isRun2 := true
-				for isRun2 {
-					fmt.Print("SUB MENU:\n1. Read Account \n2. Update Account \n3. Delete Account \n4. Top-Up \n5. Transfer \n6. History Top-Up \n7. History Transfer \n8. Melihat Profil user lain \n9. Keluar\n")
-					fmt.Println("Masukkan Pilihan Anda ")
-					var choice2 int
-					fmt.Scanln(&choice2)
-					switch choice2 {
-					case 1:
-						{
 
-							fmt.Println("=====================")
-							fmt.Println("FITUR MELIHAT AKUN")
-							fmt.Printf(" id: %d\n nama: %s\n password: %d\n no telfon: %s\n saldo: %d\n", row.User_id, row.Nama, row.Password, row.No_Handphone, row.Saldo)
-							fmt.Println("=====================")
+					fmt.Println(" ")
+					fmt.Println("Hallo menu utama 2")
+					isRun2 := true
+					for isRun2 {
+						fmt.Print("SUB MENU:\n 1. Read Account \n 2. Update Account \n 3. Delete Account \n 4. Top-Up \n 5. Transfer \n 6. History Top-Up \n 7. History Transfer \n 8. Melihat Profil user lain \n 9. Keluar\n")
+						fmt.Println("Masukkan Pilihan Anda ")
+						var choice2 int
+						fmt.Scanln(&choice2)
+						switch choice2 {
+						case 1:
+							{
 
-						}
-					case 2:
-						{
-							fmt.Println("HALO SUB MENU 2")
-							Updated.UpdatedAkun(dbConnection, row)
+								fmt.Println("=====================")
+								fmt.Println("FITUR MELIHAT AKUN")
+								fmt.Printf(" id: %d\n nama: %s\n password: %d\n no telfon: %s\n saldo: %d\n", row.User_id, row.Nama, row.Password, row.No_Handphone, row.Saldo)
+								fmt.Println("=====================")
 
-						}
-					case 3:
-						{
-							var No_Handphonee string
-							fmt.Println("Masukkan no handphone anda:")
-							fmt.Scanln(&No_Handphonee)
-							deletee.DeleteAkun(dbConnection, No_Handphonee)
-
-						}
-					case 4:
-						{
-							fmt.Println("HALO SUB MENU 4")
-						}
-					case 5:
-						{
-							transfer.Transfer(dbConnection)
-						}
-					case 6:
-						{
-							fmt.Println("HALO SUB MENU 6")
-						}
-					case 7:
-						{
-							fmt.Println("HALO SUB MENU 7")
-						}
-					case 8:
-						{
-							fmt.Println("JINGOK USER LAIN")
-							cari := entities.Users{}
-							fmt.Println("Masukkan No telfon User yg ingin dilihat :")
-							fmt.Scanln(&cari.No_Handphone)
-
-							row, err := anotherusers.Search(dbConnection, cari)
-							if err != nil {
-								fmt.Println("Tidak di temukan", err)
-							} else {
-								fmt.Printf(" Nama : %s\n saldo : %d\n", row.Nama, row.Saldo)
 							}
+						case 2:
+							{
+								fmt.Println("=====================")
+								fmt.Println("FITUR UPDATE AKUN")
+								Updated.UpdatedAkun(dbConnection, row)
+								fmt.Println("=====================")
 
-						}
-					case 9:
-						{
-							fmt.Println("\n Terimakasih Telah Bertransaksi  ^_^ ")
-							isRun2 = false
+							}
+						case 3:
+							{
+								fmt.Println("=====================")
+								fmt.Println("FITUR DELETE AKUN")
+								var No_Handphonee string
+								fmt.Println("Masukkan no handphone anda:")
+								fmt.Scanln(&No_Handphonee)
+								deletee.DeleteAkun(dbConnection, No_Handphonee)
+								fmt.Println("=====================")
+
+							}
+						case 4:
+							{
+								fmt.Println("HALO SUB MENU 4")
+							}
+						case 5:
+							{
+								fmt.Println("=====================")
+								fmt.Println("=== FITUR TRANSFER ===")
+								transfer.Transfer(dbConnection)
+								fmt.Println("=====================")
+								
+							}
+						case 6:
+							{
+								fmt.Println("HALO SUB MENU 6")
+							}
+						case 7:
+							{
+								fmt.Println("HALO SUB MENU 7")
+							}
+						case 8:
+							{
+								cari := entities.Users{}
+								fmt.Print("Masukkan No telfon User yg ingin dilihat :")
+								fmt.Scanln(&cari.No_Handphone)
+
+								row, err := anotherusers.Search(dbConnection, cari)
+								if err != nil {
+									fmt.Println("Tidak di temukan", err)
+								} else {
+									fmt.Printf(" Nama : %s\n saldo : %d\n", row.Nama, row.Saldo)
+								}
+
+							}
+						case 9:
+							{
+								fmt.Println("\n Terimakasih Telah Bertransaksi  ^_^ ")
+								isRun2 = false
+							}
 						}
 					}
 				}
