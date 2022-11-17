@@ -6,6 +6,7 @@ import (
 
 	//"be13/sql/account/controllers/ReadAccount"
 	"be13/sql/account/controllers/Updated"
+	"be13/sql/account/controllers/deletee"
 	"be13/sql/account/controllers/login"
 	"be13/sql/account/controllers/register"
 
@@ -81,7 +82,11 @@ func main() {
 						}
 					case 3:
 						{
-							fmt.Println("HALO SUB MENU 3")
+							var No_Handphonee string
+							fmt.Println("Masukkan no handphone anda:")
+							fmt.Scanln(&No_Handphonee)
+							deletee.DeleteAkun(dbConnection, No_Handphonee)
+							
 						}
 					case 4:
 						{
