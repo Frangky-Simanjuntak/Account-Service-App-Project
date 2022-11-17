@@ -5,6 +5,7 @@ import (
 	"be13/sql/account/entities"
 
 	//"be13/sql/account/controllers/ReadAccount"
+	"be13/sql/account/controllers/Updated"
 	"be13/sql/account/controllers/login"
 	"be13/sql/account/controllers/register"
 
@@ -17,7 +18,7 @@ func main() {
 	dbConnection := config.ConnectToDB()
 
 	defer dbConnection.Close() // menutup koneksi
-
+	in := entities.Users{}
 	isRun := true
 	for isRun {
 		fmt.Println(" ")
@@ -41,7 +42,7 @@ func main() {
 		case 2:
 			{
 
-				in := entities.Users{}
+				// in := entities.Users{}
 				fmt.Println("Silahkan Masukkan Nomor Telepon Anda :")
 				fmt.Scanln(&in.No_Handphone)
 				fmt.Println("Silahkan Masukkan Password Anda :")
@@ -74,26 +75,8 @@ func main() {
 						}
 					case 2:
 						{
-							// var db *sql.DB
 							fmt.Println("HALO SUB MENU 2")
-							// updated.UpdatedAkun(dbConnection,row)
-							// var query = db.QueryRow("UPDATED users SET nama = ? where nama = ?", row.Nama)
-							// Updated.UpdatedAkun(dbConnection)
-							// fmt.Println("di bawah ini hasil print query di main")
-							// statement, errPrepare := db.Prepare(query)
-							// if errPrepare != nil {
-							// 	return -1, errPrepare
-							// }
-							// result, errExec := statement.Exec(updateUser.Name, updateUser.Status, updateUser.Dob, updateUser.Gender, updateUser.Id_user) //jumlah dan urutan disesuaikan dngan tanda tanya komen mysql
-							// if errExec != nil {
-							// 	return -1, errExec
-							// } else {
-							// 	row, errRow := result.RowsAffected()
-							// 	if errRow != nil {
-							// 		return 0, errRow
-							// 	}
-							// 	return int(row), nil
-							// }
+							Updated.UpdatedAkun(dbConnection, row)
 
 						}
 					case 3:
