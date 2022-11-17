@@ -28,12 +28,19 @@ func main() {
 		switch choice {
 		case 1:
 			{
+				newUser := entities.Users{}
+				fmt.Println("masukkan nama")
+				fmt.Scanln(&newUser.Nama)
+				fmt.Println("masukkan password")
+				fmt.Scanln(&newUser.Password)
+				fmt.Println("masukkan no handphone")
+				fmt.Scanln(&newUser.No_Handphone)
 				fmt.Println("ADD ACOUNT")
-				register.Add(dbConnection)
+				register.Add(dbConnection, newUser)
 			}
 		case 2:
 			{
-				
+
 				in := entities.Users{}
 				fmt.Println("Silahkan Masukkan Nomor Telepon Anda :")
 				fmt.Scanln(&in.No_Handphone)
@@ -46,7 +53,7 @@ func main() {
 				} else {
 					fmt.Println("Selamat Datang", row.Nama, "\nSaldo yang Anda Miliki adalah", row.Saldo)
 				}
-				
+
 				fmt.Println(" ")
 				fmt.Println("Hallo menu utama 2")
 				isRun2 := true
@@ -58,16 +65,36 @@ func main() {
 					switch choice2 {
 					case 1:
 						{
-							
-								fmt.Println("=====================")
-								fmt.Println("FITUR MELIHAT AKUN")
-								fmt.Printf(" id: %d\n nama: %s\n password: %d\n no telfon: %s\n saldo: %d\n",row.User_id, row.Nama, row.Password ,row.No_Handphone,row.Saldo)
-								fmt.Println("=====================")
-							
+
+							fmt.Println("=====================")
+							fmt.Println("FITUR MELIHAT AKUN")
+							fmt.Printf(" id: %d\n nama: %s\n password: %d\n no telfon: %s\n saldo: %d\n", row.User_id, row.Nama, row.Password, row.No_Handphone, row.Saldo)
+							fmt.Println("=====================")
+
 						}
 					case 2:
 						{
+							// var db *sql.DB
 							fmt.Println("HALO SUB MENU 2")
+							// updated.UpdatedAkun(dbConnection,row)
+							// var query = db.QueryRow("UPDATED users SET nama = ? where nama = ?", row.Nama)
+							// Updated.UpdatedAkun(dbConnection)
+							// fmt.Println("di bawah ini hasil print query di main")
+							// statement, errPrepare := db.Prepare(query)
+							// if errPrepare != nil {
+							// 	return -1, errPrepare
+							// }
+							// result, errExec := statement.Exec(updateUser.Name, updateUser.Status, updateUser.Dob, updateUser.Gender, updateUser.Id_user) //jumlah dan urutan disesuaikan dngan tanda tanya komen mysql
+							// if errExec != nil {
+							// 	return -1, errExec
+							// } else {
+							// 	row, errRow := result.RowsAffected()
+							// 	if errRow != nil {
+							// 		return 0, errRow
+							// 	}
+							// 	return int(row), nil
+							// }
+
 						}
 					case 3:
 						{
