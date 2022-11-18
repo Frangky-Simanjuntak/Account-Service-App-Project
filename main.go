@@ -3,10 +3,12 @@ package main
 import (
 	"be13/sql/account/config"
 	"be13/sql/account/controllers/Updated"
+	"be13/sql/account/controllers/anotherusers"
 	"be13/sql/account/controllers/deletee"
 	"be13/sql/account/controllers/login"
 	"be13/sql/account/controllers/register"
-	"be13/sql/account/controllers/topup"
+
+	//"be13/sql/account/controllers/topup"
 	"be13/sql/account/controllers/transfer"
 	"be13/sql/account/entities"
 
@@ -56,7 +58,7 @@ func main() {
 					fmt.Println("Hallo menu utama 2")
 					isRun2 := true
 					for isRun2 {
-						fmt.Print("SUB MENU:\n 1. Read Account \n 2. Update Account \n 3. Delete Account \n 4. Top-Up \n 5. Transfer \n 6. History Top-Up \n 7. History Transfer \n 8. Melihat Profil user lain \n 9. Keluar\n")
+						fmt.Print("\nSUB MENU:\n 1. Read Account \n 2. Update Account \n 3. Delete Account \n 4. Top-Up \n 5. Transfer \n 6. History Top-Up \n 7. History Transfer \n 8. Melihat Profil user lain \n 9. Keluar\n")
 						fmt.Println("Masukkan Pilihan Anda ")
 						var choice2 int
 						fmt.Scanln(&choice2)
@@ -86,7 +88,7 @@ func main() {
 							}
 						case 4:
 							{
-								
+
 							}
 						case 5:
 							{
@@ -102,7 +104,16 @@ func main() {
 							}
 						case 8:
 							{
-								fmt.Println("HALO SUB MENU 8")
+								cari := entities.Users{}
+								fmt.Println("Masukkan No Telfon user lain :")
+								fmt.Scanln(&cari.No_Handphone)
+
+								row, err := anotherusers.Search(dbConnection, cari)
+								if err != nil {
+									log.Fatal("\nERROR ON LOGIN DATA", err.Error())
+								} else {
+									fmt.Printf("\nNama : %s \nSaldo : %d\n", row.Nama, row.Saldo)
+								}
 							}
 						case 9:
 							{
