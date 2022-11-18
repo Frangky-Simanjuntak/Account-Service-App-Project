@@ -12,9 +12,7 @@ var nohp1 = entities.Topup{}
 
 func InsertToTopup(db *sql.DB, datadilogin entities.Topup, in entities.Users) {
 	fmt.Println(in.User_id)
-	fmt.Println("masukan no handphone anda")
-	fmt.Scanln(&nohp.No_Handphone)
-	fmt.Println(nohp.No_Handphone)
+
 	fmt.Println("masukan nominal topup")
 	fmt.Scanln(&nohp1.Jumlah)
 	var query = "INSERT INTO topup(id, users_id, jumlah, created_at, updated_at) VALUES (?,?,?,?,?)"
@@ -37,7 +35,18 @@ func InsertToTopup(db *sql.DB, datadilogin entities.Topup, in entities.Users) {
 
 }
 
-func TopUpAkun(db *sql.DB, datadilogin entities.Users) {
+func TopUpAkun(db *sql.DB) {
+	fmt.Println("masukan no handphone anda")
+	fmt.Scanln(&nohp.No_Handphone)
+	fmt.Println(nohp.No_Handphone)
+
+	statm := db.QueryRow("SELECT id, nama, passwords, saldo FROM users WHERE no_handphone = ?", nohp.No_Handphone)
+	var in entities.Users
+	errs := statm.Scan(&in.User_id, &in.Nama, &in.Password, &in.Saldo)
+	if errs != nil {
+		log.Fatal("ERRORS line 47", errs.Error())
+	}
+	fmt.Println("Ini id  users ", in)
 
 	var query1 string = "UPDATE users SET saldo = ? WHERE id = ?"
 	statement, errPrepare := db.Prepare(query1)
@@ -46,8 +55,8 @@ func TopUpAkun(db *sql.DB, datadilogin entities.Users) {
 		log.Fatal("erorr prepare insert", errPrepare.Error())
 
 	}
-	saldosekarang := datadilogin.Saldo + nohp1.Jumlah
-	result, errExec := statement.Exec(&saldosekarang, &datadilogin.User_id)
+	saldosekarang := in.Saldo + nohp1.Jumlah
+	result, errExec := statement.Exec(&saldosekarang, &in.User_id)
 	if errExec != nil {
 		log.Fatal("erorr Exec insert", errExec.Error())
 	} else {
@@ -61,5 +70,5 @@ func TopUpAkun(db *sql.DB, datadilogin entities.Users) {
 	fmt.Println("dibawah ini hasil print jumlah topup")
 	fmt.Println(nohp1.Jumlah)
 	fmt.Println("dibawah ini hasil print jumlah saldo awal")
-	fmt.Println(datadilogin.Saldo)
+	fmt.Println(in.Saldo)
 }

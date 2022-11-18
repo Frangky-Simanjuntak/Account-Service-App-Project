@@ -30,7 +30,7 @@ func Transfer(db *sql.DB) {
 	var in entities.Users
 	errs := statm.QueryRow(pengirims.No_Handphone).Scan(&in.User_id, &in.Saldo)
 	if errs != nil {
-		log.Fatal("ERRORS line 31", errs.Error())
+		log.Fatal("ERRORS line 33", errs.Error())
 	}
 
 	//LANJUT KE TRANSFER KE NOMOR PENERIMA

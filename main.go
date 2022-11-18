@@ -6,6 +6,7 @@ import (
 	"be13/sql/account/controllers/anotherusers"
 	"be13/sql/account/controllers/deletee"
 	"be13/sql/account/controllers/login"
+	"be13/sql/account/controllers/read"
 	"be13/sql/account/controllers/register"
 	"be13/sql/account/controllers/topup"
 	"be13/sql/account/controllers/transfer"
@@ -68,7 +69,7 @@ func main() {
 
 								fmt.Println("=====================")
 								fmt.Println("FITUR MELIHAT AKUN")
-								fmt.Printf(" id: %d\n nama: %s\n password: %d\n no telfon: %s\n saldo: %d\n", row.User_id, row.Nama, row.Password, row.No_Handphone, row.Saldo)
+								read.ReadAkun(dbConnection, row)
 								fmt.Println("=====================")
 
 							}
@@ -89,7 +90,7 @@ func main() {
 						case 4:
 							{
 								topup.InsertToTopup(dbConnection, in1, row)
-								topup.TopUpAkun(dbConnection, row)
+								topup.TopUpAkun(dbConnection)
 							}
 						case 5:
 							{
