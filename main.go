@@ -7,8 +7,7 @@ import (
 	"be13/sql/account/controllers/deletee"
 	"be13/sql/account/controllers/login"
 	"be13/sql/account/controllers/register"
-	"be13/sql/account/controllers/transfer"
-	"be13/sql/account/entities"
+
 	"fmt"
 	"log"
 
@@ -18,7 +17,7 @@ import (
 func main() {
 	dbConnection := config.ConnectToDB()
 	defer dbConnection.Close() // menutup koneksi
-
+	in := entities.Users{}
 	isRun := true
 	for isRun {
 		fmt.Print("MENU UTAMA: \n 1. Add Account \n 2. Login \n 0. Keluar\n")
@@ -29,7 +28,7 @@ func main() {
 		case 1:
 			{
 				newUser := entities.Users{}
-				fmt.Print("masukkan Nama anda : ")
+				fmt.Println("masukkan nama")
 				fmt.Scanln(&newUser.Nama)
 				fmt.Print("masukkan password anda : ")
 				fmt.Scanln(&newUser.Password)
@@ -70,65 +69,45 @@ func main() {
 								fmt.Printf(" id: %d\n nama: %s\n password: %d\n no telfon: %s\n saldo: %d\n", row.User_id, row.Nama, row.Password, row.No_Handphone, row.Saldo)
 								fmt.Println("=====================")
 
-							}
-						case 2:
-							{
-								fmt.Println("=====================")
-								fmt.Println("FITUR UPDATE AKUN")
-								Updated.UpdatedAkun(dbConnection, row)
-								fmt.Println("=====================")
+						}
+					case 2:
+						{
+							fmt.Println("HALO SUB MENU 2")
+							Updated.UpdatedAkun(dbConnection, row)
 
-							}
-						case 3:
-							{
-								fmt.Println("=====================")
-								fmt.Println("FITUR DELETE AKUN")
-								var No_Handphonee string
-								fmt.Println("Masukkan no handphone anda:")
-								fmt.Scanln(&No_Handphonee)
-								deletee.DeleteAkun(dbConnection, No_Handphonee)
-								fmt.Println("=====================")
-
-							}
-						case 4:
-							{
-								fmt.Println("HALO SUB MENU 4")
-							}
-						case 5:
-							{
-								fmt.Println("=====================")
-								fmt.Println("=== FITUR TRANSFER ===")
-								transfer.Transfer(dbConnection)
-								fmt.Println("=====================")
-								
-							}
-						case 6:
-							{
-								fmt.Println("HALO SUB MENU 6")
-							}
-						case 7:
-							{
-								fmt.Println("HALO SUB MENU 7")
-							}
-						case 8:
-							{
-								cari := entities.Users{}
-								fmt.Print("Masukkan No telfon User yg ingin dilihat :")
-								fmt.Scanln(&cari.No_Handphone)
-
-								row, err := anotherusers.Search(dbConnection, cari)
-								if err != nil {
-									fmt.Println("Tidak di temukan", err)
-								} else {
-									fmt.Printf(" Nama : %s\n saldo : %d\n", row.Nama, row.Saldo)
-								}
-
-							}
-						case 9:
-							{
-								fmt.Println("\n Terimakasih Telah Bertransaksi  ^_^ ")
-								isRun2 = false
-							}
+						}
+					case 3:
+						{
+							var No_Handphonee string
+							fmt.Println("Masukkan no handphone anda:")
+							fmt.Scanln(&No_Handphonee)
+							deletee.DeleteAkun(dbConnection, No_Handphonee)
+							
+						}
+					case 4:
+						{
+							fmt.Println("HALO SUB MENU 4")
+						}
+					case 5:
+						{
+							fmt.Println("HALO SUB MENU 5")
+						}
+					case 6:
+						{
+							fmt.Println("HALO SUB MENU 6")
+						}
+					case 7:
+						{
+							fmt.Println("HALO SUB MENU 7")
+						}
+					case 8:
+						{
+							fmt.Println("HALO SUB MENU 8")
+						}
+					case 9:
+						{
+							fmt.Println("\n Terimakasih Telah Bertransaksi  ^_^ ")
+							isRun2 = false
 						}
 					}
 				}

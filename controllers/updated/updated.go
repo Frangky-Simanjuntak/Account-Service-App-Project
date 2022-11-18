@@ -9,9 +9,11 @@ import (
 
 func UpdatedAkun(db *sql.DB, datadilogin entities.Users) {
 	fmt.Println("=======================")
-	fmt.Print("selamat datang di updated :\n 1. ganti nama\n 2. ganti password\n 3. ganti no handphone \n")
+	fmt.Print("selamat datandi updated :\n 1. ganti nama\n 2. ganti password\n 3. ganti no handphone \n")
 	fmt.Println("masukan pilihan anda :")
 	var pilihupdated int
+	fmt.Scanln(&pilihupdated)
+	switch pilihupdated 
 	fmt.Scanln(&pilihupdated)
 	switch pilihupdated {
 	case 1:
@@ -19,7 +21,6 @@ func UpdatedAkun(db *sql.DB, datadilogin entities.Users) {
 			nama := entities.Users{}
 			fmt.Println("masukan nama baru")
 			fmt.Scanln(&nama.Nama)
-	
 			var query1 string = "UPDATE users SET nama = ? WHERE id = ?"
 			statement, errPrepare := db.Prepare(query1)
 
@@ -33,64 +34,67 @@ func UpdatedAkun(db *sql.DB, datadilogin entities.Users) {
 			} else {
 				row, _ := result.RowsAffected()
 				if row > 0 {
-					fmt.Printf("UPDATE NAMA BERHASIIL :>\n")
+					fmt.Println("selamat berhasil ganti nama ")
 				} else {
-					fmt.Printf("UPDATE NAMA GAGAL :<\n")
+					fmt.Println("maaf ganti nama gagal")
 				}
 			}
+
 		}
 	case 2:
 		{
+			untukpassword := entities.Users{}
 			nama := entities.Users{}
-			fmt.Print("masukan password baru : ")
+			fmt.Println("masukan password lama")
+			fmt.Scanln(&untukpassword.Password)
+			fmt.Println("masukan password baru")
 			fmt.Scanln(&nama.Password)
-			fmt.Print("masukan id anda : ")
-			fmt.Scanln(&nama.User_id)
-			
-			var query = "UPDATE users SET password = ? WHERE id = ?"
-			statement, errPrepare := db.Prepare(query)
-			if errPrepare != nil {
-				log.Fatal("error saat prepare", errPrepare.Error())
-			}
-			result, errExec := statement.Exec(nama.Password, datadilogin.User_id) //jumlah dan urutan disesuaikan dngan tanda tanya komen mysql
-			if errExec != nil {
-				log.Fatal("error di statement", errExec.Error())
-			} else {
-				row, errrow := result.RowsAffected()
-
-				if row > 0 {
-					fmt.Println("UPDATE PASSWORD BERHASIL :> ")
-				} else {
-					fmt.Println("UPDATE PASSWORD GAGAL :< ", errrow.Error())
-				}
-			}
-		}
-	case 3:
-		{
-			nama2 := entities.Users{}
-			fmt.Println("Masukan no telfon yang baru")
-			fmt.Scanln(&nama2.Nama)
-	
-			var query2 string = "UPDATE users SET no_handphone = ? WHERE id = ?"
-			statement, errPrepare := db.Prepare(query2)
+			var query1 string = "UPDATE users SET passwords = ? WHERE id = ?"
+			statement, errPrepare := db.Prepare(query1)
 
 			if errPrepare != nil {
 				log.Fatal("erorr prepare insert", errPrepare.Error())
 
 			}
-			result, errExec := statement.Exec(&nama2.No_Handphone, &datadilogin.User_id)
+			result, errExec := statement.Exec(&nama.Password, &datadilogin.User_id)
 			if errExec != nil {
 				log.Fatal("erorr Exec insert", errExec.Error())
 			} else {
 				row, _ := result.RowsAffected()
 				if row > 0 {
-					fmt.Println("UPDATE NO TELFON BERHASIIL :>")
+					fmt.Println("selamat berhasil ganti password ")
 				} else {
-					fmt.Println("UPDATE NO TELFON GAGAL :<")
+					fmt.Println("maaf ganti password gagal")
 				}
 			}
 
 		}
+	case 3:
+		{
+			nama := entities.Users{}
+			fmt.Println("masukan no handphone baru")
+			fmt.Scanln(&nama.No_Handphone)
+			var query1 string = "UPDATE users SET no_handphone = ? WHERE id = ?"
+			statement, errPrepare := db.Prepare(query1)
 
+			if errPrepare != nil {
+				log.Fatal("erorr prepare insert", errPrepare.Error())
+
+			}
+			}
+			}
+			result, errExec := tatement.Exec(&nama.No_Handphne, &datadilogin.User_id)
+			if errExc != nil {
+				log.Fatl("erorr Exec insert", erExec.Error())
+			} else {
+				row, _ := reult.RowsAffected()
+				if row >0 {
+					fmt.Pritln("selamat berhasil ganti no handphne ")
+				}else {
+				mt.Println("maaf ganti no handphone gagal")
+			
+		
 	}
+
+	
 }
