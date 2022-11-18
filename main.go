@@ -25,14 +25,14 @@ func main() {
 	isRun := true
 	for isRun {
 		fmt.Print("MENU UTAMA: \n 1. Add Account \n 2. Login \n 0. Keluar\n")
-		fmt.Println("\nMasukkan Pilihan Anda  ")
+		fmt.Print("Masukkan Pilihan Anda : ")
 		var choice int
 		fmt.Scanln(&choice)
 		switch choice {
 		case 1:
 			{
 				newUser := entities.Users{}
-				fmt.Println("masukkan nama")
+				fmt.Print("masukkan nama : ")
 				fmt.Scanln(&newUser.Nama)
 				fmt.Print("masukkan password anda : ")
 				fmt.Scanln(&newUser.Password)
@@ -44,6 +44,7 @@ func main() {
 			{
 				//ROW DIBUTUH KAN DI CASE READ, UPDATE AKUN
 				in := entities.Users{}
+				fmt.Println(" ")
 				fmt.Print("Silahkan Masukkan Nomor Telepon Anda : ")
 				fmt.Scanln(&in.No_Handphone)
 				fmt.Print("Silahkan Masukkan Password Anda : ")
@@ -56,11 +57,11 @@ func main() {
 					fmt.Printf("\nSelamat Datang %s \nSaldo yang Anda Miliki adalah %d\n", row.Nama, row.Saldo)
 
 					fmt.Println(" ")
-					fmt.Println("Hallo menu utama 2")
+
 					isRun2 := true
 					for isRun2 {
 						fmt.Print("\nSUB MENU:\n 1. Read Account \n 2. Update Account \n 3. Delete Account \n 4. Top-Up \n 5. Transfer \n 6. History Top-Up \n 7. History Transfer \n 8. Melihat Profil user lain \n 9. Keluar\n")
-						fmt.Println("Masukkan Pilihan Anda ")
+						fmt.Print("Masukkan Pilihan Anda : ")
 						var choice2 int
 						fmt.Scanln(&choice2)
 						switch choice2 {
@@ -81,10 +82,13 @@ func main() {
 							}
 						case 3:
 							{
+								fmt.Println("=====================")
+								fmt.Println("FITUR DELETE AKUN")
 								var No_Handphonee string
-								fmt.Println("Masukkan no handphone anda:")
+								fmt.Println("Harap Masukkan no handphone anda:")
 								fmt.Scanln(&No_Handphonee)
 								deletee.DeleteAkun(dbConnection, No_Handphonee)
+								fmt.Println("=====================")
 
 							}
 						case 4:
@@ -94,7 +98,10 @@ func main() {
 							}
 						case 5:
 							{
+								fmt.Println("==============")
+								fmt.Println("FITUR TRANSFER")
 								transfer.Transfer(dbConnection)
+								fmt.Println("==============")
 							}
 						case 6:
 							{
@@ -107,19 +114,19 @@ func main() {
 						case 8:
 							{
 								cari := entities.Users{}
-								fmt.Println("Masukkan No Telfon user lain :")
+								fmt.Print("Masukkan No Telfon user lain : ")
 								fmt.Scanln(&cari.No_Handphone)
 
 								row, err := anotherusers.Search(dbConnection, cari)
 								if err != nil {
 									log.Fatal("\nERROR ON LOGIN DATA", err.Error())
 								} else {
-									fmt.Printf("\nNama : %s \nSaldo : %d\n", row.Nama, row.Saldo)
+									fmt.Printf("\nNama   : %s \nSaldo : %d\n", row.Nama, row.Saldo)
 								}
 							}
 						case 9:
 							{
-								fmt.Println("\n Terimakasih Telah Bertransaksi  ^_^ ")
+								fmt.Printf("\n Terimakasih Telah Bertransaksi  ^_^")
 								isRun2 = false
 							}
 						}
@@ -128,6 +135,7 @@ func main() {
 			}
 		case 0:
 			{
+				fmt.Println("THANK YOU :>>")
 				isRun = false
 			}
 		}
