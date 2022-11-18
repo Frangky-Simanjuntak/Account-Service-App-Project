@@ -7,6 +7,7 @@ import (
 	"be13/sql/account/controllers/deletee"
 	"be13/sql/account/controllers/login"
 	"be13/sql/account/controllers/register"
+	"be13/sql/account/controllers/topup"
 	"be13/sql/account/controllers/transfer"
 	"be13/sql/account/entities"
 
@@ -87,7 +88,8 @@ func main() {
 							}
 						case 4:
 							{
-
+								topup.InsertToTopup(dbConnection, in1, row)
+								topup.TopUpAkun(dbConnection, row)
 							}
 						case 5:
 							{
