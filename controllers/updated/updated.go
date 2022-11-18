@@ -9,15 +9,15 @@ import (
 
 func UpdatedAkun(db *sql.DB, datadilogin entities.Users) {
 	fmt.Println("=======================")
-	fmt.Print("selamat datang di updated :\n 1. ganti nama\n 2. ganti password\n 3. ganti no handphone \n")
-	fmt.Println("masukan pilihan anda :")
+	fmt.Print("Selamat datang di fitur updated akun :\n 1. ganti nama\n 2. ganti password\n 3. ganti no handphone \n")
+	fmt.Print("masukan pilihan anda : ")
 	var pilihupdated int
 	fmt.Scanln(&pilihupdated)
 	switch pilihupdated {
 	case 1:
 		{
 			nama := entities.Users{}
-			fmt.Println("masukan nama baru")
+			fmt.Print("masukan nama baru anda : ")
 			fmt.Scanln(&nama.Nama)
 			var query1 string = "UPDATE users SET nama = ? WHERE id = ?"
 			statement, errPrepare := db.Prepare(query1)
@@ -32,9 +32,9 @@ func UpdatedAkun(db *sql.DB, datadilogin entities.Users) {
 			} else {
 				row, _ := result.RowsAffected()
 				if row > 0 {
-					fmt.Println("selamat berhasil ganti nama ")
+					fmt.Printf("selamat berhasil ganti nama menjadi %s\n ",nama.Nama)
 				} else {
-					fmt.Println("maaf ganti nama gagal")
+					fmt.Println("maaf ganti nama gagal :<")
 				}
 			}
 
@@ -43,9 +43,9 @@ func UpdatedAkun(db *sql.DB, datadilogin entities.Users) {
 		{
 			untukpassword := entities.Users{}
 			nama := entities.Users{}
-			fmt.Println("masukan password lama")
+			fmt.Print("masukan password lama anda : ")
 			fmt.Scanln(&untukpassword.Password)
-			fmt.Println("masukan password baru")
+			fmt.Print("masukan password baru anda : ")
 			fmt.Scanln(&nama.Password)
 			var query1 string = "UPDATE users SET passwords = ? WHERE id = ?"
 			statement, errPrepare := db.Prepare(query1)

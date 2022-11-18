@@ -14,5 +14,5 @@ func ReadAkun(db *sql.DB, readid entities.Users) {
 	if errs != nil {
 		log.Fatal("ERRORS line 15", errs.Error())
 	}
-	fmt.Printf("nama: %s\n password: %d\n no Handphone: %s\n saldo: %d\n ",in.Nama, in.Password, in.No_Handphone,in.Saldo)
+	fmt.Printf(" nama : %s\n password : %d\n no Handphone : %s\n saldo : %d\n ",in.Nama, in.Password, in.No_Handphone,in.Saldo)
 }

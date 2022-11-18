@@ -24,7 +24,8 @@ func Add(db *sql.DB, newUser entities.Users) (sql.Result, error) {
 	} else {
 		row, _ := result.RowsAffected()
 		if row > 0 {
-			fmt.Printf("Register Akun Berhasil\n")
+			fmt.Printf("Hallo %s Register Akun Berhasil :>\n", newUser.Nama)
+			fmt.Println(" ")
 		} else {
 			fmt.Printf("Register Akun Gagal o_0 \n")
 		}

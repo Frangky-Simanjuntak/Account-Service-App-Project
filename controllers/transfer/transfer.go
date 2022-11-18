@@ -9,17 +9,15 @@ import (
 
 func Transfer(db *sql.DB) {
 
-	fmt.Println("==============")
-	fmt.Println("FITUR TRANSFER")
-	fmt.Println("==============")
+	
 
 	// membaca data saldo pengirim dan penerima
 	pengirims := entities.Users{}
 	penerima := entities.Users{}
 
-	fmt.Print(" Masukan Nomor Akun Anda :")
+	fmt.Print(" Masukan Nomor Akun Anda : ")
 	fmt.Scanln(&pengirims.No_Handphone)
-	fmt.Print(" Masukan Nomor Penerima :")
+	fmt.Print(" Masukan Nomor Penerima : ")
 	fmt.Scanln(&penerima.No_Handphone)
 
 	//NYIMPEN DATA PENGIRIM
@@ -83,6 +81,6 @@ func Transfer(db *sql.DB) {
 		log.Fatal("Gagal", error.Error())
 	}
 
-	fmt.Println("Sukses Melakukan Transfer Sebesar : Rp.", transfer)
+	fmt.Println("Sukses Melakukan Transfer Sebesar : Rp.",transfer)
 
 }
