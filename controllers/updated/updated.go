@@ -9,11 +9,9 @@ import (
 
 func UpdatedAkun(db *sql.DB, datadilogin entities.Users) {
 	fmt.Println("=======================")
-	fmt.Print("selamat datandi updated :\n 1. ganti nama\n 2. ganti password\n 3. ganti no handphone \n")
+	fmt.Print("selamat datang di updated :\n 1. ganti nama\n 2. ganti password\n 3. ganti no handphone \n")
 	fmt.Println("masukan pilihan anda :")
 	var pilihupdated int
-	fmt.Scanln(&pilihupdated)
-	switch pilihupdated 
 	fmt.Scanln(&pilihupdated)
 	switch pilihupdated {
 	case 1:
@@ -79,22 +77,19 @@ func UpdatedAkun(db *sql.DB, datadilogin entities.Users) {
 
 			if errPrepare != nil {
 				log.Fatal("erorr prepare insert", errPrepare.Error())
+			}
 
-			}
-			}
-			}
-			result, errExec := tatement.Exec(&nama.No_Handphne, &datadilogin.User_id)
-			if errExc != nil {
-				log.Fatl("erorr Exec insert", erExec.Error())
+			result, errExec := statement.Exec(&nama.No_Handphone, &datadilogin.User_id)
+			if errExec != nil {
+				log.Fatal("erorr Exec insert", errExec.Error())
 			} else {
-				row, _ := reult.RowsAffected()
-				if row >0 {
-					fmt.Pritln("selamat berhasil ganti no handphne ")
-				}else {
-				mt.Println("maaf ganti no handphone gagal")
-			
-		
+				row, _ := result.RowsAffected()
+				if row > 0 {
+					fmt.Println("selamat berhasil ganti no handphne ")
+				} else {
+					fmt.Println("maaf ganti no handphone gagal")
+				}
+			}
+		}
 	}
-
-	
 }
