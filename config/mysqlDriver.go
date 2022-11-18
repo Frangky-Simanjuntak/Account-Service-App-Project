@@ -19,7 +19,7 @@ func ConnectToDB() *sql.DB {
 	if errPing != nil {  //handling error ketika gagal konek ke db
 		log.Fatal("error connect to db ", errPing.Error())
 	} else {
-		fmt.Println("KONEKSI BERHASIL")
+		fmt.Println("\nSELAMAT DATANG DI ACCOUNT SERVICE APP")
 	}
 	return db
 }
